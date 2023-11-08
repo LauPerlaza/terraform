@@ -55,9 +55,9 @@ resource "aws_security_group" "sec_group_vpc1" {
   vpc_id      = module.vpc1.vpc_id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
@@ -91,9 +91,9 @@ resource "aws_security_group" "sec_group_vpc2" {
   vpc_id      = module.vpc2.vpc_id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
