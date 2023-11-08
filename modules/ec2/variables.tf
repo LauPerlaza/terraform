@@ -20,3 +20,8 @@ variable "name" {
 variable "environment" {
   type = string
 }
+
+variable "iam_instance_profile" {
+  description = "name of the IAM role to associate with the EC2 instance"
+  type        = string
+}
