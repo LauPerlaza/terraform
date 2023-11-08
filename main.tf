@@ -3,7 +3,7 @@ module "vpc1" {
   region                    = var.region
   environment               = var.environment
   name_vpc                  = "vpc1"
-  ip                        = "67.73.233.212/32"
+  ip                        = "0.0.0.0/0"
   cidr_block_vpc            = "10.20.0.0/16"
   cidr_block_subnet_public  = ["10.20.1.0/24", "10.20.2.0/24"]
   cidr_block_subnet_private = ["10.20.10.0/24", "10.20.20.0/24"]
@@ -14,13 +14,14 @@ module "vpc2" {
   region                    = var.region
   environment               = var.environment
   name_vpc                  = "vpc2"
-  ip                        = "67.73.233.212/32"
+  ip                        = "0.0.0.0/0"
   cidr_block_vpc            = "192.168.0.0/16"
   cidr_block_subnet_public  = ["192.168.10.0/24", "192.168.20.0/24"]
   cidr_block_subnet_private = ["192.168.30.0/24", "192.168.40.0/24"]
 }
 
 resource "aws_vpc_peering_connection" "peering_connection" {
+  depends_on = [module.vpc1, module.vpc2]
   vpc_id      = module.vpc1.vpc_id
   peer_vpc_id = module.vpc2.vpc_id
   auto_accept = true
@@ -64,7 +65,7 @@ resource "aws_security_group" "sec_group_vpc1" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["67.73.233.212/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
@@ -100,7 +101,7 @@ resource "aws_security_group" "sec_group_vpc2" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["67.73.233.212/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
     from_port   = 0
