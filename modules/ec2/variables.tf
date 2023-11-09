@@ -25,3 +25,10 @@ variable "iam_instance_profile" {
   description = "name of the IAM role to associate with the EC2 instance"
   type        = string
 }
+
+variable "tags" {
+  description = "tags to assign to AWS resources."
+  type        = map(string)
+  default     = {}
+}
+

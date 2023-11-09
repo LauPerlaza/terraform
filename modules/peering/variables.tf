@@ -17,10 +17,12 @@ variable "peer_vpc_id" {
   type        = string
 }
 
-variable "name_vpc_peering" {
+variable "auto_accept" {
   type        = string
 }
 
-variable "auto_accept" {
-  type        = string
+variable "tags" {
+  description = "tags to assign to AWS resources."
+  type        = map(string)
+  default     = {}
 }

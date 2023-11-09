@@ -6,12 +6,6 @@ resource "aws_instance" "instance_peering" {
   key_name      = "key_web_server"
   associate_public_ip_address = true
   iam_instance_profile = var.iam_instance_profile == "" ? null : var.iam_instance_profile
-
   vpc_security_group_ids = var.sg_ids
-
-  tags = {
-    Name        = "${var.name}_${var.environment}"
-    Environment = var.environment
-    CreatedBy   = "terraform"
-  }
+  tags = var.tags
 }

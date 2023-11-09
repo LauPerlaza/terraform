@@ -27,3 +27,9 @@ variable "cidr_block_subnet_private" {
 variable "name_vpc" {
   type = string
 }
+
+variable "tags" {
+  description = "tags to assign to AWS resources."
+  type        = map(string)
+  default     = {}
+}

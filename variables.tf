@@ -3,7 +3,13 @@ variable "region" {
   description = "Region"
   default     = "us-east-1"
 }
-variable "environment" {
+variable "env" {
   type    = string
   default = "develop"
+}
+
+variable "tags" {
+  description = "tags to assign to AWS resources."
+  type        = map(string)
+  default     = {}
 }

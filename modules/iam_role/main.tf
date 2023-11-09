@@ -1,5 +1,6 @@
 resource "aws_iam_role" "role_ec2" {
-  name = var.role_name  
+  name = var.role_name 
+  tags = var.tags 
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -18,6 +19,7 @@ resource "aws_iam_role" "role_ec2" {
 resource "aws_iam_policy" "rol_policy" {
   name        = var.policy_name
   description = "Política de solo lectura para VPC"
+  tags = var.tags
 
   policy = jsonencode({
     Version = "2012-10-17",
