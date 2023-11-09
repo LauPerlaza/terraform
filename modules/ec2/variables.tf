@@ -24,6 +24,7 @@ variable "environment" {
 variable "iam_instance_profile" {
   description = "name of the IAM role to associate with the EC2 instance"
   type        = string
+  default     = "null"
 }
 
 variable "tags" {

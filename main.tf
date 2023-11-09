@@ -8,10 +8,6 @@ module "vpc1" {
   cidr_block_vpc            = "10.20.0.0/16"
   cidr_block_subnet_public  = ["10.20.1.0/24", "10.20.2.0/24"]
   cidr_block_subnet_private = ["10.20.10.0/24", "10.20.20.0/24"]
-
-  tags = {
-    billing_mode = "laura_learning"
-  }
 }
 
 #   #   # AWS_VPC #  #   #
@@ -24,10 +20,6 @@ module "vpc2" {
   cidr_block_vpc            = "192.168.0.0/16"
   cidr_block_subnet_public  = ["192.168.10.0/24", "192.168.20.0/24"]
   cidr_block_subnet_private = ["192.168.30.0/24", "192.168.40.0/24"]
-
-  tags = {
-    billing_mode = "laura_learning"
-  }
 }
 
 #   #   # aws_vpc_peering_connection #  #   #
@@ -36,11 +28,6 @@ resource "aws_vpc_peering_connection" "peering_connection" {
   vpc_id      = module.vpc1.vpc_id
   peer_vpc_id = module.vpc2.vpc_id
   auto_accept = true
-
-  tags = {
-    Name         = "vpc_peering_connection"
-    billing_mode = "laura_learning"
-  }
 }
 
 #   #   # AWS ROUTE TABLE #  #   #
@@ -49,7 +36,6 @@ resource "aws_route_table" "route_table_vpc1" {
 
   tags = {
     Name         = "route_table_vpc1_${var.env}"
-    billing_mode = "laura_learning"
   }
 }
 
@@ -59,7 +45,6 @@ resource "aws_route_table" "route_table_vpc2" {
 
   tags = {
     Name         = "route_table_vpc2_${var.env}"
-    billing_mode = "laura_learning"
   }
 }
 
@@ -106,7 +91,6 @@ resource "aws_security_group" "sec_group_vpc1" {
   }
   tags = {
     Name         = "sec_group_vpc1_${var.env}"
-    billing_mode = "laura_learning"
   }
 }
 #   #   # AWS_INSTANCE #   #   #
@@ -118,11 +102,9 @@ module "ec2_peering_1" {
   sg_ids               = [aws_security_group.sec_group_vpc1.id]
   name                 = "server_peering_1"
   environment          = var.env
-  iam_instance_profile = null
 
   tags = {
     Name         = "server_peering_1_${var.env}"
-    billing_mode = "laura_learning"
   }
 }
 
@@ -153,7 +135,6 @@ resource "aws_security_group" "sec_group_vpc2" {
   }
   tags = {
     Name         = "sec_group_vpc2_${var.env}"
-    billing_mode = "laura_learning"
   }
 }
 
@@ -166,11 +147,9 @@ module "ec2_peering_2" {
   sg_ids               = [aws_security_group.sec_group_vpc2.id]
   name                 = "server_peering_2"
   environment          = var.env
-  iam_instance_profile = null
 
   tags = {
     Name         = "server_peering_2_${var.env}"
-    billing_mode = "laura_learning"
   }
 }
 
@@ -185,10 +164,6 @@ module "iam_role" {
   source      = "./modules/iam_role"
   role_name   = "server_role"
   policy_name = "ec2_policy"
-
-  tags = {
-    billing_mode = "laura_learning"
-  }
 }
 
 #   #   # AWS INSTANCE #    #    #
@@ -204,6 +179,5 @@ module "ec2_instance" {
 
   tags = {
     Name         = "server_iam_role_${var.env}"
-    billing_mode = "laura_learning"
   }
 }
