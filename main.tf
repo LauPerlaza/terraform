@@ -104,7 +104,7 @@ module "ec2_peering_1" {
   environment          = var.env
 
   tags = {
-    Name         = "server_peering_1_${var.env}"
+    Name               = "server_peering_1_${var.env}"
   }
 }
 
@@ -178,6 +178,6 @@ module "ec2_instance" {
   iam_instance_profile = aws_iam_instance_profile.test_profile.name
 
   tags = {
-    Name         = "server_iam_role_${var.env}"
+    Name = "server_iam_role_${var.env}"
   }
 }

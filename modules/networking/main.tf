@@ -51,7 +51,6 @@ resource "aws_subnet" "sub_private2" {
   
   tags = {
     Name = "sub_priv2_${var.environment}"
-    billing_mode = "laura_learning"
   }
 }
 
@@ -61,7 +60,6 @@ resource "aws_internet_gateway" "igw_test" {
   
   tags = {
     Name = "internet_gateway_test_${var.environment}"
-    billing_mode = "laura_learning"
   }
 }
 #   #   # AWS ROUTE TABLE #  #   #
@@ -74,7 +72,6 @@ resource "aws_route_table" "route_table_test" {
   
   tags = {
     Name = "route_table_test_${var.environment}"
-    billing_mode = "laura_learning"
   }
 }
 #   #   # AWS ROUTE TABLE ASSOCIATION  #  #   #
@@ -113,6 +110,5 @@ resource "aws_security_group" "security_test" {
   }
   tags = {
     Name = "security_gruop_test_${var.environment}"
-    billing_mode = "laura_learning"
   }
 }

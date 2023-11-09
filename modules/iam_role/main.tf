@@ -1,7 +1,6 @@
 resource "aws_iam_role" "role_ec2" {
   name = var.role_name 
-  tags = var.tags 
-
+  
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [

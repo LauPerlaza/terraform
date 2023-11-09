@@ -7,5 +7,4 @@ resource "aws_instance" "instance_peering" {
   associate_public_ip_address = true
   iam_instance_profile = var.iam_instance_profile == "" ? null : var.iam_instance_profile
   vpc_security_group_ids = var.sg_ids
-  tags = var.tags
 }
