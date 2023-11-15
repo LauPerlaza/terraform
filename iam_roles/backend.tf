@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket = "web-ducks-server-develop"
-    key = "web-ducks-server-develop"
+    bucket = "terraform-test"
+    key = "back-terraform-test"
     region = "us-east-1"
-    dynamodb_table = "dynamodb-ducks-develop"
+    dynamodb_table = "dynamodb-terraform-test"
     encrypt = true
    }
 }
