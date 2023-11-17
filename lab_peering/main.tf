@@ -1,6 +1,6 @@
 #   #   # AWS_VPC #  #   #
 module "vpc1" {
-  source                    = "./modules/networking"
+  source                    = "../modules/networking"
   region                    = var.region
   environment               = var.env
   name_vpc                  = "vpc1"
@@ -12,7 +12,7 @@ module "vpc1" {
 
 #   #   # AWS_VPC #  #   #
 module "vpc2" {
-  source                    = "./modules/networking"
+  source                    = "../modules/networking"
   region                    = var.region
   environment               = var.env
   name_vpc                  = "vpc2"
@@ -96,12 +96,13 @@ resource "aws_security_group" "sec_group_vpc1" {
 #   #   # AWS_INSTANCE #   #   #
 module "ec2_peering_1" {
   depends_on           = [aws_security_group.sec_group_vpc1]
-  source               = "./modules/ec2"
+  source               = "../modules/ec2"
   instance_type        = var.env == "develop" ? "t2.micro" : "t3.micro"
   subnet_id            = module.vpc1.subnet_id_sub_public1
   sg_ids               = [aws_security_group.sec_group_vpc1.id]
   name                 = "server_peering_1"
   environment          = var.env
+  iam_instance_profile = null
 
   tags = {
     Name               = "server_peering_1_${var.env}"
@@ -141,43 +142,15 @@ resource "aws_security_group" "sec_group_vpc2" {
 #   #   # AWS_INSTANCE #    #    #
 module "ec2_peering_2" {
   depends_on           = [aws_security_group.sec_group_vpc2]
-  source               = "./modules/ec2"
+  source               = "../modules/ec2"
   instance_type        = var.env == "develop" ? "t2.micro" : "t3.micro"
   subnet_id            = module.vpc2.subnet_id_sub_private1
   sg_ids               = [aws_security_group.sec_group_vpc2.id]
   name                 = "server_peering_2"
   environment          = var.env
+  iam_instance_profile = null
 
   tags = {
     Name         = "server_peering_2_${var.env}"
-  }
-}
-
-#   #   # AWS INSTANCE PROFILE #    #    #
-resource "aws_iam_instance_profile" "test_profile" {
-  name = "test_profile"
-  role = module.iam_role.iam_role_name
-}
-
-#   #   # IAM ROLE #    #    #
-module "iam_role" {
-  source      = "./modules/iam_role"
-  role_name   = "server_role"
-  policy_name = "ec2_policy"
-}
-
-#   #   # AWS INSTANCE #    #    #
-module "ec2_instance" {
-  depends_on           = [module.iam_role]
-  source               = "./modules/ec2"
-  instance_type        = var.env == "develop" ? "t2.micro" : "t3.micro"
-  subnet_id            = module.vpc1.subnet_id_sub_public1
-  sg_ids               = [aws_security_group.sec_group_vpc1.id]
-  name                 = "server_iam_role"
-  environment          = var.env
-  iam_instance_profile = aws_iam_instance_profile.test_profile.name
-
-  tags = {
-    Name = "server_iam_role_${var.env}"
   }
 }

@@ -7,9 +7,3 @@ variable "env" {
   type    = string
   default = "develop"
 }
-
-variable "tags" {
-  description = "tags to assign to AWS resources."
-  type        = map(string)
-  default     = {}
-}
